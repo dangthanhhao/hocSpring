@@ -1,5 +1,7 @@
 package com.dangthanhhao.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class TrangChuController {
 @RequestMapping("/")
 
-	public String HelloWord() {
+	public String HelloWord(Model model) {
+		ArrayList<String> listName=new ArrayList<String>();
+//		listName.add("Hao");
+//		listName.add("Nguyen");
+//		listName.add("An");
+		model.addAttribute("listName", listName);
 		return "index";
 	}
 

@@ -9,11 +9,29 @@
 
 	<context:component-scan
 		base-package="com.dangthanhhao.controller"></context:component-scan>
-	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+	<!-- <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix" value="/WEB-INF/view/"></property> <property name="suffix" 
-		value=".jsp"></property> </bean> 
-		
+		value=".jsp"></property> </bean> -->
 	
+
+	<bean id="viewResolver"
+		class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".html" />
+		<property name="cacheable" value="false" />
+	</bean>
+
+	<bean id="engine"
+		class="org.thymeleaf.spring4.SpringTemplateEngine">
+		<property name="templateResolver" ref="viewResolver" />
+	</bean>
+
+	<bean id=""
+		class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="engine" />
+	</bean>
+	
+
 </beans>
 
 
