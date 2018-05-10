@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="nguoiviet1" class="springcoban.Vietnamese">
+		<constructor-arg value="Hao" type="java.lang.String"
+			name="name">
+		</constructor-arg>
+		<constructor-arg value="15" type="int" name="id">
+		</constructor-arg>
+		
+		<property name="abc" value="ddd"></property>
+	</bean>
+
+</beans>
