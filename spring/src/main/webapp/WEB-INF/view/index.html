@@ -5,13 +5,13 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Hello worssld!  
 </h1>
  
 <P>  The time on the server is <label th:text="${1+1}"></label> </P>
 
-<ul th:if="${listName != null && !listName.empty}">
-    <li th:each="user: ${listName}" th:text="${user}"></li>
+<ul th:if="${list!= null && !list.empty}">
+    <li th:each="user: ${list}" th:text="${user.ten}"></li>
   </ul>
 </body>
 </html>
