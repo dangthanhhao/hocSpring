@@ -61,8 +61,12 @@ public class TrangChuController {
 	public String TestHibernate(ModelMap model){
 		Session session=factory.getCurrentSession();
 		Query query= session.createQuery("FROM HangHoa");
-		List<HangHoa> list=query.list();
+		List<HangHoa> list=query.getResultList();
+		HangHoa a=new HangHoa();
+		a.setTen("Đặng Thanh Hào");
+		list.add(a);
 		model.addAttribute("list", list);
+		model.addAttribute("test", "Đặng Thanh Hào");
 		return "index";
 	}
 }

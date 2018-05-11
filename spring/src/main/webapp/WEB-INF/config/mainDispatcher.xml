@@ -19,16 +19,19 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".html" />
 		<property name="cacheable" value="false" />
+		<property name="characterEncoding" value="UTF-8"/>
 	</bean>
 
 	<bean id="engine"
 		class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="templateResolver" ref="viewResolver" />
+		
 	</bean>
 
 	<bean id=""
 		class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="engine" />
+		<property name="characterEncoding" value="UTF-8"/>
 	</bean>
 	
 
