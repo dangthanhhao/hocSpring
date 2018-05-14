@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.dangthanhhao.entity.HangHoa;
+import com.dangthanhhao.entity.User;
 
 @Controller
 
@@ -57,16 +58,12 @@ public class TrangChuController {
 	
 	@Transactional
 	@RequestMapping("/hiber")
-	
 	public String TestHibernate(ModelMap model){
 		Session session=factory.getCurrentSession();
-		Query query= session.createQuery("FROM HangHoa");
-		List<HangHoa> list=query.getResultList();
-		HangHoa a=new HangHoa();
-		a.setTen("Đặng Thanh Hào");
-		list.add(a);
+		Query query= session.createQuery("FROM User");
+		List<User> list=query.getResultList();
 		model.addAttribute("list", list);
-		model.addAttribute("test", "Đặng Thanh Hào");
+		
 		return "index";
 	}
 }

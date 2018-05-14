@@ -11,7 +11,7 @@
 <P>  The time on the server is <label th:text="${test}"></label> </P>
 
 <ul th:if="${list!= null && !list.empty}">
-    <li th:each="user: ${list}" th:text="${user.ten}"></li>
+    <li th:each="user: ${list}" th:text="${user.toString()}"></li>
   </ul>
 </body>
 </html>
