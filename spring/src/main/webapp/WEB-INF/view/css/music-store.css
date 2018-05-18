@@ -218,7 +218,7 @@ color:white !important;
 		text-decoration:none;
 		color:white;
 }
-#btnAddToCart{
+#btnAddToCart, #btnDownload{
 	display:block;
 	background-color: #E91E63;
 	border:solid black 1px;
