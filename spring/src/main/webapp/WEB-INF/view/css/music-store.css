@@ -228,7 +228,7 @@ color:white !important;
 	margin:20px auto;
 	width:240px;
 }
-#btnAddToCart:hover{
+#btnAddToCart:hover,#btnDownload:hover{
 	background-color: #9c27b0;
 	color:#ffffff;
 	text-decoration:none;
@@ -251,7 +251,7 @@ color:white !important;
 	width:30%;
 	margin:20px auto;
 }
-aside p {
+.chucngenhac {
 	font-family:"Pacifico";
 	color:#f71616;
 -webkit-animation: color-change 1s infinite;

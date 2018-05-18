@@ -2,51 +2,47 @@
 	<div class="mainContent col-sm-8" >
 		<article>
 			<h1>Đăng kí</h1>
-			<form role="form registerform">
+			<form role="form registerform" action="doregister" method="post">
 				<div class="form-group registerform">
 					<label for="Username">Tên đăng nhập</label>
-					<input type="text" class="form-control" id="Username" placeholder="Username">
+					<input type="text" class="form-control" id="Username" placeholder="Username" name="usersName" th:value="${newacc.usersName}">
 				</div>
 				<div class="form-group registerform">
 					<label for="password">Mật khẩu</label>
-					<input type="password" class="form-control" id="password" placeholder="Password">
-				</div>
-				<div class="form-group registerform">
-					<label for="repassword">Mật khẩu</label>
-					<input type="password" class="form-control" id="repassword" placeholder="REpassword">
+					<input type="password" class="form-control" id="password" placeholder="Password" name="password" th:value="${newacc.password}">
 				</div>
 
 				<div class="form-group registerform">
 					<label for="name">Họ và tên</label>
-					<input type="text" class="form-control" id="name" placeholder="Name">
+					<input type="text" class="form-control" id="name" placeholder="Name" name="name" th:value="${newuser.name}">
 				</div>
 				<div class="form-group registerform">
 					<label for="email">Email</label>
-					<input type="email" class="form-control" id="email" placeholder="Email">
+					<input type="email" class="form-control" id="email" placeholder="Email" name="email"  th:value="${newuser.email}">
 				</div>
 				<div class="form-group registerform">
 					<label for="company">Nơi làm việc</label>
-					<input type="text" class="form-control" id="company" placeholder="Company">
+					<input type="text" class="form-control" id="company" placeholder="Company" name="companyName"  th:value="${newuser.companyName}">
 				</div>
 				<div class="form-group registerform">
 					<label for="address">Địa chỉ</label>
-					<input type="text" class="form-control" id="address" placeholder="Address">
+					<input type="text" class="form-control" id="address" placeholder="Address" name="address" th:value="${newuser.address}">
 				</div>
 				<div class="form-group registerform">
 					<label for="city">Thành phố</label>
-					<input type="text" class="form-control" id="city" placeholder="City">
+					<input type="text" class="form-control" id="city" placeholder="City" name="city" th:value="${newuser.city}">
 				</div>
 				<div class="form-group registerform">
 					<label for="credittype">Loại thẻ tín dụng</label>
-					<input type="text" class="form-control" id="credittype" placeholder="Credit card type">
+					<input type="text" class="form-control" id="credittype" placeholder="Credit card type" name="creditCardType"  th:value="${newuser.creditCardType}">
 				</div>
 				<div class="form-group registerform">
 					<label for="creditNumber">Số thẻ tín dụng</label>
-					<input type="number" class="form-control" id="creditNumber" placeholder="Credit card number">
+					<input type="number" class="form-control" id="creditNumber" placeholder="Credit card number" name="creditCardNumber" th:value="${newuser.creditCardNumber}">
 				</div>
 				<div class="form-group registerform">
 					<label for="creditNumber">Ngày hết hạn</label>
-					<input type="date" class="form-control" id="creditNumber">
+					<input type="text" class="form-control" id="creditNumber" name="creditCardExpirationDate" th:value="${newuser.creditCardExpirationDate}">
 				</div>
 				
 				<div class="checkbox registerform">
