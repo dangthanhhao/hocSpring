@@ -40,20 +40,17 @@ public class TrangChuController {
 	}
 
 	@RequestMapping(method=RequestMethod.GET,value="/login")
-	@ResponseBody
-	public String Login(HttpServletRequest request) {
-		Object d= request.getSession().getAttribute("login");
-		if (d==null) return " null sestion";
-		if((Boolean)d==true) return "U arre logined";
-		else return "u arre not login";
+	
+	public String Login() {
+		return "login";
 	}
-	@RequestMapping(method=RequestMethod.POST, value="/login")
-	public String postmethod(String name, Model mode, HttpServletRequest request) {
-		request.getSession().setAttribute("login", true);	
-		System.out.println("This is post");
-		mode.addAttribute("name",name);
-		
-		return "reg";
+	@RequestMapping("/product")
+	public String Product(){
+		return "products";
+	}
+	@RequestMapping("/productdetail")
+	public String ProductDetail(){
+		return "productdetail";
 	}
 	
 	@Transactional

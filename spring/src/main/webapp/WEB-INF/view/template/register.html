@@ -1,0 +1,66 @@
+<div th:replace="header_menubar.html"></div>
+	<div class="mainContent col-sm-8" >
+		<article>
+			<h1>Đăng kí</h1>
+			<form role="form registerform">
+				<div class="form-group registerform">
+					<label for="Username">Tên đăng nhập</label>
+					<input type="text" class="form-control" id="Username" placeholder="Username">
+				</div>
+				<div class="form-group registerform">
+					<label for="password">Mật khẩu</label>
+					<input type="password" class="form-control" id="password" placeholder="Password">
+				</div>
+				<div class="form-group registerform">
+					<label for="repassword">Mật khẩu</label>
+					<input type="password" class="form-control" id="repassword" placeholder="REpassword">
+				</div>
+
+				<div class="form-group registerform">
+					<label for="name">Họ và tên</label>
+					<input type="text" class="form-control" id="name" placeholder="Name">
+				</div>
+				<div class="form-group registerform">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" id="email" placeholder="Email">
+				</div>
+				<div class="form-group registerform">
+					<label for="company">Nơi làm việc</label>
+					<input type="text" class="form-control" id="company" placeholder="Company">
+				</div>
+				<div class="form-group registerform">
+					<label for="address">Địa chỉ</label>
+					<input type="text" class="form-control" id="address" placeholder="Address">
+				</div>
+				<div class="form-group registerform">
+					<label for="city">Thành phố</label>
+					<input type="text" class="form-control" id="city" placeholder="City">
+				</div>
+				<div class="form-group registerform">
+					<label for="credittype">Loại thẻ tín dụng</label>
+					<input type="text" class="form-control" id="credittype" placeholder="Credit card type">
+				</div>
+				<div class="form-group registerform">
+					<label for="creditNumber">Số thẻ tín dụng</label>
+					<input type="number" class="form-control" id="creditNumber" placeholder="Credit card number">
+				</div>
+				<div class="form-group registerform">
+					<label for="creditNumber">Ngày hết hạn</label>
+					<input type="date" class="form-control" id="creditNumber">
+				</div>
+				
+				<div class="checkbox registerform">
+					<label>
+						<input type="checkbox"> Tôi đồng ý với các điều khoản abc
+					</label>
+				</div>
+				<div style="text-align: center; ">
+				<button type="submit" class="btn btn-default">Tạo tài khoản</button>
+				</div>
+			</form>
+			<hr>
+			
+		</article>
+	</div>
+	<div th:replace="asideADS.html"></div>
+<div th:replace="footer.html"></div>
