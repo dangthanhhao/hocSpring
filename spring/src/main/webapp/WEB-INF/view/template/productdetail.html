@@ -1,20 +1,22 @@
 <div th:replace="header_menubar.html"></div>
 	<div class="mainContent col-sm-8" >
 		<article>
-			<h1>Albumn Nơi này có anh</h1>
-			<p class="price">Giá: 35000đ</p>
-			<img src="files/images/album/noinaycoanh.jpg" alt="albumpic" class="introducePic">
-
-			<audio controls autoplay src="files/music/noinaycoanh.MP3" type="audio/mpeg" class="audiocontrol">
+			<h1 th:text="'Album '+${product.productName}"></h1>
+			<p class="price" th:text="'Giá '+${product.productPrice}"></p>
+			<img th:attr="src=files+${product.imageURL}" alt="albumpic" class="introducePic">
+		
+			<audio controls th:attr="src=files+${songPlay.exampleSongURL}" type="audio/mpeg" class="audiocontrol">
 				
 				Your browser does not support the audio element.
 			</audio>
 		
 		<ol class="listnhac">
-			<a href=""><li>Nơi này có anh- Sơn Tùng MTP</li></a>
-			<a href=""><li>Như ngày hôm qua- Sơn Tùng MTP</li></a>
-			<a href=""><li>Chạy ngay đi- Sơn Tùng MTP</li></a>
-			<li>Cơn mưa ngang qua</li>
+			
+			<div th:each="song : ${listSong}">
+			<a th:if="${song.isExample==1}" th:attr="href=@{/productdetail?id=}+${product.productId}+'&songname='+${song.exampleSongName}"><li th:text="${song.exampleSongName}"></li></a>
+			<li th:if="${song.isExample==0}" th:text="${song.exampleSongName}"></li>
+			</div>
+			
 		</ol>
 		<p class="introduceProductText">"Nơi này có anh" là sáng tác Sơn Tùng dành tặng những người yêu mến anh trong suốt thời gian qua. Nam ca sĩ từng chia sẻ anh xem họ như "người yêu" của mình nên muốn gửi ca khúc mới như món quà Valentine đầy ý nghĩa. Đây cũng là lần đầu tiên nam ca sĩ viết một ca khúc về đề tài tình yêu hạnh phúc, với sự hỗ trợ trong phần sản xuất từ producer Khắc Hưng.</p>
 		<div class="buttonn">
@@ -23,6 +25,20 @@
 		</div>
 		</article>
 	</div>
-<div th:replace="play.html"></div>
+
+		<aside class="col-sm-2 ads">
+			<ul>
+				<li>
+			
+			<h2><strong>Album đang nghe</strong></h2>
+			<a href="#">
+			<h4><strong>Nơi này có anh</strong></h4>
+			<img src="files/images/play.gif" alt="albumpic">
+			</a>
+			<p class="chucngenhac" style="text-align:center; font-size:200%; font">Chúc bạn nghe nhạc vui vẻ :D</p>
+				
+			</li>
+			</ul>
+		</aside>
 <div th:replace="footer.html"></div>
 	

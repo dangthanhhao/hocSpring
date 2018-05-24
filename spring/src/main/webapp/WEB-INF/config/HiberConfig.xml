@@ -30,6 +30,7 @@
 				<prop key="hibernate.connection.CharSet">UTF8</prop>
 				<prop key="hibernate.connection.characterEncoding">utf8</prop>
 				<prop key="hibernate.connection.useUnicode">true</prop>
+				<prop key="hibernate.legacy_limit_handler">true</prop>
 			</props>
 		</property>
 		<property name="packagesToScan"

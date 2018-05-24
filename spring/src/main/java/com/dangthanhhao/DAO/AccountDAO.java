@@ -12,7 +12,8 @@ import com.dangthanhhao.entity.User;
 
 public class AccountDAO {
 	
-	Session session;	public AccountDAO(Session session) {
+	Session session;
+	public AccountDAO(Session session) {
 		super();
 		this.session = session;
 	}

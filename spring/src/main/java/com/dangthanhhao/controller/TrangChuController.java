@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +24,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
 import com.dangthanhhao.DAO.AccountDAO;
+import com.dangthanhhao.DAO.ProductDAO;
+import com.dangthanhhao.DAO.SongDAO;
 import com.dangthanhhao.entity.Account;
 import com.dangthanhhao.entity.User;
+import com.dangthanhhao.entity.Product;
+import com.dangthanhhao.entity.SongExample;
 
 @Controller
 
 public class TrangChuController {
 	@Autowired
 	SessionFactory factory;
+	// show homepage
 	@RequestMapping("/")
 	public String HelloWord(Model model) {
 		return "index";
 	}
-
+	//account
 	@RequestMapping("/register")
 	public String Product(Model model){
 		Account a=new Account();
@@ -60,26 +64,6 @@ public class TrangChuController {
 		
 		return "index";
 	}
-	@RequestMapping("/productdetail")
-	public String ProductDetail(){
-		return "productdetail";
-	}
-	
-	@Transactional
-	@RequestMapping("/hiber")
-	public String TestHibernate(ModelMap model){
-		Session session=factory.getCurrentSession();
-		Query query= session.createQuery("FROM Account");
-		List<Account> list=query.getResultList();
-		
-		for (Account account : list) {
-			System.out.println(account);
-		}
-		return "index";
-	}
-	
-
-	
 	@RequestMapping("/login")
 	public String Login(HttpServletRequest request,@CookieValue(value = "login", defaultValue="none") String loginCookie, Model model){
 		
@@ -113,4 +97,63 @@ public class TrangChuController {
 		model.addAttribute("mess", "Xóa cookies thành công, bạn có thể đăng nhập!");
 		return "noti";
 	}
+	
+	//product visit
+
+	@Transactional
+	@RequestMapping("/products")
+	public String listProduct(Model model, @RequestParam(value="page",defaultValue="1") int page,@RequestParam(value="search",defaultValue="none") String search ) {
+		System.out.println(search);
+		Session session=factory.getCurrentSession();
+		ProductDAO pd=new ProductDAO(session);
+		ArrayList<Product> listProduct =pd.getAll(page,search);
+		model.addAttribute("search", search);
+		model.addAttribute("listProduct", listProduct);
+		model.addAttribute("pageindex", page);
+		return "products";
+	}
+	@Transactional
+	@RequestMapping("/productdetail")
+	public String showDetail(@RequestParam(value="id",defaultValue="1") int id,@RequestParam(value="songname",defaultValue="none") String songName, Model model){
+		Session session=factory.getCurrentSession();
+		ProductDAO pd=new ProductDAO(session);
+		Product p=pd.getProductById(id);
+		List<SongExample> listSong= p.getListSong();
+		SongExample songPlay=null;
+		SongExample songCanPlay=null;
+		System.out.println(songName);
+		for (SongExample songExample : listSong) {
+			if(songExample.getIsExample()==1) {
+				songCanPlay=songExample;
+				if(songExample.getExampleSongName().equals(songName)) {
+				songPlay=songExample;
+				
+				break;
+				}
+			}
+		}
+		if(songPlay==null) songPlay=songCanPlay;
+		System.out.println(songPlay.getExampleSongName());
+		model.addAttribute("productId", id);
+		model.addAttribute("product", p);
+		model.addAttribute("songPlay", songPlay);
+		model.addAttribute("listSong", listSong);
+		return "productdetail";
+	}
+	@Transactional
+	@RequestMapping("/hiber")
+	public String TestHibernate(ModelMap model){
+		Session session=factory.getCurrentSession();
+		
+//		ProductDAO pd=new ProductDAO(session);
+//		ArrayList<Product> listProduct =pd.getAll(1);
+//		for (Product product : listProduct) {
+//			System.out.println(product);
+//		}
+		return "index";
+	}
+	
+
+	
+	
 }
