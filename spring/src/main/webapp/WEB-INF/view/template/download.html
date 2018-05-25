@@ -1,0 +1,10 @@
+<div th:replace="header_menubar.html"></div>
+	<div class="mainContent col-sm-8" >
+		<article>
+			<h1 th:text="${mess}"></h1>
+			<a th:attr="href=@{/files}+${product.productURL}">Download</a>
+		</article>
+	</div>
+	
+	<div th:replace="asideADS.html"></div>
+<div th:replace="footer.html"></div>

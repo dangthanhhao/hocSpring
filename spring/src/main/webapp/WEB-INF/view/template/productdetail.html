@@ -18,10 +18,10 @@
 			</div>
 			
 		</ol>
-		<p class="introduceProductText">"Nơi này có anh" là sáng tác Sơn Tùng dành tặng những người yêu mến anh trong suốt thời gian qua. Nam ca sĩ từng chia sẻ anh xem họ như "người yêu" của mình nên muốn gửi ca khúc mới như món quà Valentine đầy ý nghĩa. Đây cũng là lần đầu tiên nam ca sĩ viết một ca khúc về đề tài tình yêu hạnh phúc, với sự hỗ trợ trong phần sản xuất từ producer Khắc Hưng.</p>
+		<p class="introduceProductText" th:text="${product.productDescription}"></p>
 		<div class="buttonn">
-		<a id="btnAddToCart"><span class="glyphicon glyphicon-shopping-cart"></span> Thêm vào giỏ hàng</a>
-		<a id="btnDownload"><span class="glyphicon glyphicon-circle-arrow-down"></span> Tải xuống albumn</a>
+		<a id="btnAddToCart" th:attr="href=@{/addtocart?id=}+${product.productId}"><span class="glyphicon glyphicon-shopping-cart"></span> Thêm vào giỏ hàng</a>
+		<a id="btnDownload" th:attr="href=@{/download?id=}+${product.productId}"><span class="glyphicon glyphicon-circle-arrow-down"></span> Tải xuống albumn</a>
 		</div>
 		</article>
 	</div>
@@ -30,9 +30,9 @@
 			<ul>
 				<li>
 			
-			<h2><strong>Album đang nghe</strong></h2>
+			<h2><strong>Bài hát đang nghe</strong></h2>
 			<a href="#">
-			<h4><strong>Nơi này có anh</strong></h4>
+			<h4><strong th:text="${songPlay.exampleSongName}"></strong></h4>
 			<img src="files/images/play.gif" alt="albumpic">
 			</a>
 			<p class="chucngenhac" style="text-align:center; font-size:200%; font">Chúc bạn nghe nhạc vui vẻ :D</p>

@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.WebUtils;
 
 import com.dangthanhhao.DAO.AccountDAO;
+import com.dangthanhhao.DAO.InvoiceDAO;
 import com.dangthanhhao.DAO.ProductDAO;
 import com.dangthanhhao.DAO.SongDAO;
 import com.dangthanhhao.entity.Account;
+import com.dangthanhhao.entity.Invoice;
 import com.dangthanhhao.entity.User;
 import com.dangthanhhao.entity.Product;
 import com.dangthanhhao.entity.SongExample;
@@ -140,17 +142,120 @@ public class TrangChuController {
 		model.addAttribute("listSong", listSong);
 		return "productdetail";
 	}
+	
+	@RequestMapping("/support")
+	public String support(ModelMap model){
+		model.addAttribute("mess", "Mọi ý kiến đóng góp vui lòng liên hệ admin số đt 0123456789. Email: aszqsc@gmail.com");
+		return "noti";	
+	}
+	@RequestMapping("/registeremail")
+	public String regEmail(ModelMap model,@CookieValue(value = "login", defaultValue="none") String loginCookie){
+		if(loginCookie.equals("none")) {
+			model.addAttribute("mess", "Bạn chưa đăng nhập! Vui lòng đăng nhập để đăng kí nhận email từ chúng tôi!");
+			return "noti";
+		}
+			return "registeremail";
+	}
+	
+	@RequestMapping("/doregemail")
 	@Transactional
-	@RequestMapping("/hiber")
-	public String TestHibernate(ModelMap model){
+	public String doregemail(ModelMap model,@CookieValue(value = "login", defaultValue="none") String loginCookie, @RequestParam(value="check",defaultValue="none") String check){
+		if(loginCookie.equals("none")) {
+			model.addAttribute("mess", "Bạn chưa đăng nhập! Vui lòng đăng nhập để đăng kí nhận email từ chúng tôi!");
+			return "noti";
+		}
+		if(!check.equals("ok")) {
+			model.addAttribute("mess", "Cảm ơn bạn đã sử dụng web");
+			return "noti";
+		}
+			AccountDAO ad=new AccountDAO(factory.getCurrentSession());
+			User u=ad.getUserByID(new Integer(loginCookie));
+
+
+			if (u!=null) {
+				if(u.getSubscribes()!=null) {
+				if(u.getSubscribes()==1) {
+
+					model.addAttribute("mess", "Bạn đã đăng kí nhận email quảng cáo rồi!");
+					return "noti";
+				}
+				}
+			}
+			
+		u.setSubscribes(new Integer(1));
+		System.out.println("a");
 		Session session=factory.getCurrentSession();
+		session.saveOrUpdate(u);
+		System.out.println("b");
+		model.addAttribute("mess", "Cảm ơn bạn đã đăng kí. Chúng tôi sẽ mang đến cho bạn những sản phẩm chất lượng nhất!");
+		return "noti";
+			
+	}
+	
+	@Transactional
+	@RequestMapping("/addtocart")
+	public String addtocart(ModelMap model,@CookieValue(value = "login", defaultValue="none") String loginCookie, @RequestParam(value="id",defaultValue="-1") String productid){
+		if(loginCookie.equals("none")) {
+			model.addAttribute("mess", "Bạn chưa đăng nhập! Vui lòng đăng nhập để mua hàng!");
+			return "noti";
+		}
+		if(productid.equals("none")) {
+			model.addAttribute("mess", "Lỗi sản phẩm");
+			return "noti";
+		}
+		Session session=factory.getCurrentSession();
+		AccountDAO ad=new AccountDAO(session);
+		User u= ad.getUserByID(new Integer(loginCookie));
+		ProductDAO pd=new ProductDAO(session);
+		Product p=pd.getProductById(new Integer(productid));
+		InvoiceDAO idao=new InvoiceDAO(session);
+		if(idao.addinvoice(u, p, session)) {
+			model.addAttribute("mess", "Mua album "+p.getProductName() +" với giá "+p.getProductPrice() + "thành công! Bạn có thể download album!");
+			return "noti";
+		}
+		else {
+			model.addAttribute("mess", "Album này mua rồi hoặc đã xảy ra lỗi trong quá trình giao dịch");
+			return "noti";
+		}
 		
-//		ProductDAO pd=new ProductDAO(session);
-//		ArrayList<Product> listProduct =pd.getAll(1);
-//		for (Product product : listProduct) {
-//			System.out.println(product);
-//		}
-		return "index";
+	}
+	
+	@Transactional
+	@RequestMapping("/download")
+	public String Download(ModelMap model,@CookieValue(value = "login", defaultValue="none") String loginCookie, @RequestParam(value="id",defaultValue="-1") String productid){
+		Session session=factory.getCurrentSession();
+		if(loginCookie.equals("none")) {
+			model.addAttribute("mess", "Bạn chưa đăng nhập! Vui lòng đăng nhập để download album!");
+			return "noti";
+		}
+		AccountDAO ad=new AccountDAO(session);
+		User u= ad.getUserByID(new Integer(loginCookie));
+		ProductDAO pd=new ProductDAO(session);
+		Product p=pd.getProductById(new Integer(productid));
+		InvoiceDAO idao=new InvoiceDAO(session);
+		if (idao.checkInvoice(u, p, session)) {
+			model.addAttribute("mess", "Cảm ơn đã mua sản phẩm, bạn có thể tải xuống ở link dưới!");
+			model.addAttribute("product", p);
+			return "download";
+		}
+		else {
+			model.addAttribute("mess", "Bạn cần mua album để có thể tải xuống!");
+			return "noti";
+		}
+	}
+	@Transactional
+	@RequestMapping("/mycart")
+	public String TestHibernate(ModelMap model,@RequestParam(value="page",defaultValue="1") int page,@CookieValue(value = "login", defaultValue="none") String loginCookie){
+		Session session=factory.getCurrentSession();
+		AccountDAO ad=new AccountDAO(session);
+		User u= ad.getUserByID(new Integer(loginCookie));
+		ProductDAO pd=new ProductDAO(session);
+		List<Product> listProduct =pd.getAlbumCart(page,u);
+		
+		model.addAttribute("listProduct", listProduct);
+		model.addAttribute("pageindex", page);
+		return "products";
+		
 	}
 	
 

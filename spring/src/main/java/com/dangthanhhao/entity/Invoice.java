@@ -1,98 +1,64 @@
-//package music.business;
-//
-//import java.util.*;
-//import java.text.*;
-//import java.io.Serializable;
-//import javax.persistence.CascadeType;
-//import javax.persistence.Entity;
-//import static javax.persistence.FetchType.EAGER;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
-//import javax.persistence.ManyToOne;
-//import javax.persistence.OneToMany;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
-//
-//@Entity
-//public class Invoice implements Serializable {
-//    
-//    @ManyToOne
-//    private User user;
-//
-//    @OneToMany(fetch=EAGER, cascade=CascadeType.PERSIST)
-//    private List<LineItem> lineItems;
-//
-//    @Temporal(TemporalType.DATE)
-//    private Date invoiceDate;
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long invoiceNumber;
-//    
-//    private boolean isProcessed;
-//
-//    public Invoice() {
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
-//
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setLineItems(List<LineItem> lineItems) {
-//        this.lineItems = lineItems;
-//    }
-//
-//    public List<LineItem> getLineItems() {
-//        return lineItems;
-//    }
-//
-//    public void setInvoiceDate(Date invoiceDate) {
-//        this.invoiceDate = invoiceDate;
-//    }
-//
-//    public Date getInvoiceDate() {
-//        return invoiceDate;
-//    }
-//
-//    public String getInvoiceDateDefaultFormat() {
-//        DateFormat dateFormat = DateFormat.getDateInstance();
-//        String invoiceDateFormatted = dateFormat.format(invoiceDate);
-//        return invoiceDateFormatted;
-//    }
-//
-//    public void setInvoiceNumber(Long invoiceNumber) {
-//        this.invoiceNumber = invoiceNumber;
-//    }
-//
-//    public Long getInvoiceNumber() {
-//        return invoiceNumber;
-//    }
-//
-//    public boolean isIsProcessed() {
-//        return isProcessed;
-//    }
-//
-//    public void setIsProcessed(boolean isProcessed) {
-//        this.isProcessed = isProcessed;
-//    }
-//
-//    public double getInvoiceTotal() {
-//        double invoiceTotal = 0.0;
-//        for (LineItem item : lineItems) {
-//            invoiceTotal += item.getTotal();
-//        }
-//        return invoiceTotal;
-//    }
-//
-//    public String getInvoiceTotalCurrencyFormat() {
-//        double total = this.getInvoiceTotal();
-//        NumberFormat currency = NumberFormat.getCurrencyInstance();
-//        String formattedTotal = currency.format(total);
-//        return formattedTotal;
-//    }
-//}
+package com.dangthanhhao.entity;
+
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+
+import static javax.persistence.FetchType.EAGER;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.dangthanhhao.entity.User;
+@Entity
+public class Invoice implements Serializable {
+    
+	@Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long invoiceID;
+    
+    
+    @ManyToOne
+    @JoinColumn(name="UserID")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="ProductID")
+    private Product product;
+
+	public Long getInvoiceID() {
+		return invoiceID;
+	}
+
+	public void setInvoiceID(Long invoiceID) {
+		this.invoiceID = invoiceID;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+   
+}

@@ -25,4 +25,9 @@ public class AccountDAO {
 		if(acc==null) return null;
 		else return acc.getUser();
 	}
+	public User getUserByID(int id) {
+		Query query=session.createQuery("From User where userID="+id);
+		return (User) query.uniqueResult();
+		
+	}
 }
