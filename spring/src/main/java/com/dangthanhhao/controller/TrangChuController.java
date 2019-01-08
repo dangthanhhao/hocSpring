@@ -248,12 +248,17 @@ public class TrangChuController {
 	public String TestHibernate(ModelMap model,@RequestParam(value="page",defaultValue="1") int page,@CookieValue(value = "login", defaultValue="none") String loginCookie){
 		Session session=factory.getCurrentSession();
 		AccountDAO ad=new AccountDAO(session);
+		if(loginCookie.equals("none")) {
+			model.addAttribute("mess", "Bạn chưa đăng nhập! Vui lòng đăng nhập để xem giỏ hàng!");
+			return "noti";
+		}
 		User u= ad.getUserByID(new Integer(loginCookie));
 		ProductDAO pd=new ProductDAO(session);
 		List<Product> listProduct =pd.getAlbumCart(page,u);
 		
 		model.addAttribute("listProduct", listProduct);
 		model.addAttribute("pageindex", page);
+		
 		return "products";
 		
 	}
